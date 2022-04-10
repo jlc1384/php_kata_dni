@@ -20,7 +20,10 @@ class Dni
         if (preg_match('/[UIOÑ]$/u', $dni)) {
             throw new InvalidDniFormatException("Last Dni character can't be i,o,u,ñ");
         }
-        throw new InvalidDniFormatException("Dni can't have characters in the middle of the string");
+        if(!preg_match('/\d{7,7}.$/', $dni)) {
+            throw new InvalidDniFormatException("Dni can't have characters in the middle of the string");
+        }
+        throw new InvalidDniFormatException("Dni must start by a number X, Y or Z");
     }
 
     /**
