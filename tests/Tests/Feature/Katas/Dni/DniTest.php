@@ -14,4 +14,11 @@ class DniTest  extends TestCase
         $this->expectExceptionMessage('Dni string is too long');
         new Dni();
     }
+
+    public function test_dni_is_invalid_because_dni_string_is_too_short()
+    {
+        $this->expectException(InvalidDniLengthException::class);
+        $this->expectExceptionMessage('Dni string is too short');
+        new Dni();
+    }
 }
