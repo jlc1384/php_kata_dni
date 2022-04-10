@@ -46,4 +46,12 @@ class DniTest  extends TestCase
         $dni = "123JSA78S";
         new Dni($dni);
     }
+
+    public function test_dni_is_invalid_because_the_beginning_of_the_string_is_not_a_number_x_y_or_z()
+    {
+        $this->expectException(InvalidDniFormatException::class);
+        $this->expectExceptionMessage('Dni must start by a number X, Y or Z');
+        $dni = "L2345678S";
+        new Dni($dni);
+    }
 }
