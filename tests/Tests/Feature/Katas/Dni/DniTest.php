@@ -26,7 +26,6 @@ class DniTest  extends TestCase
     public function test_dni_is_invalid_because_last_character_is_a_number()
     {
         $this->expectException(InvalidDniFormatException::class);
-        $this->expectExceptionMessage('Last Dni character can\'t be a number');
         $dni = "123456789";
         new Dni($dni);
     }
@@ -34,7 +33,6 @@ class DniTest  extends TestCase
     public function test_dni_is_invalid_because_last_character_cannot_be_i_u_o_spanish_n()
     {
         $this->expectException(InvalidDniFormatException::class);
-        $this->expectExceptionMessage('Last Dni character can\'t be i,o,u,ñ');
         $dni = "12345678I";
         new Dni($dni);
     }
@@ -42,7 +40,6 @@ class DniTest  extends TestCase
     public function test_dni_is_invalid_because_it_has_characters_in_the_middle()
     {
         $this->expectException(InvalidDniFormatException::class);
-        $this->expectExceptionMessage('Dni can\'t have characters in the middle of the string');
         $dni = "123JSA78S";
         new Dni($dni);
     }
@@ -50,7 +47,6 @@ class DniTest  extends TestCase
     public function test_dni_is_invalid_because_the_beginning_of_the_string_is_not_a_number_x_y_or_z()
     {
         $this->expectException(InvalidDniFormatException::class);
-        $this->expectExceptionMessage('Dni must start by a number X, Y or Z');
         $dni = "L2345678S";
         new Dni($dni);
     }
