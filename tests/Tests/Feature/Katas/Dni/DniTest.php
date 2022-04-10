@@ -38,4 +38,12 @@ class DniTest  extends TestCase
         $dni = "12345678I";
         new Dni($dni);
     }
+
+    public function test_dni_is_invalid_because_it_has_characters_in_the_middle()
+    {
+        $this->expectException(InvalidDniFormatException::class);
+        $this->expectExceptionMessage('Dni can\'t have characters in the middle of the string');
+        $dni = "123JSA78I";
+        new Dni($dni);
+    }
 }
