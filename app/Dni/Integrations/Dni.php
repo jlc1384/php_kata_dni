@@ -21,11 +21,8 @@ class Dni
      */
     private function checkDniLength($dni): void
     {
-        if (strlen($dni) > self::DNI_LENGTH_TO_CHECK) {
-            throw new InvalidDniLengthException('Dni string is too long');
-        }
-        if (strlen($dni) < self::DNI_LENGTH_TO_CHECK) {
-            throw new InvalidDniLengthException('Dni string is too short');
+        if (strlen($dni) !== self::DNI_LENGTH_TO_CHECK) {
+            throw new InvalidDniLengthException('Dni string is not valid. It must contain exactly 9 characters');
         }
     }
 }
