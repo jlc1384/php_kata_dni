@@ -23,4 +23,12 @@ class DniTest  extends TestCase
         $dni = "7890F";
         new Dni($dni);
     }
+
+    public function test_dni_is_invalid_because_last_character_is_a_number()
+    {
+        $this->expectException(InvalidDniFromatException::class);
+        $this->expectExceptionMessage('Last Dni character can\'t be a number');
+        $dni = "123456789";
+        new Dni($dni);
+    }
 }
