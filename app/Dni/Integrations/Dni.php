@@ -36,17 +36,8 @@ class Dni
      */
     private function checkDniStringStructure($dni): void
     {
-        if (preg_match('/\d$/', $dni)) {
-            throw new InvalidDniFormatException("Last Dni character can't be a number");
-        }
-        if (preg_match('/[UIOÑ]$/u', $dni)) {
-            throw new InvalidDniFormatException("Last Dni character can't be i,o,u,ñ");
-        }
-        if (!preg_match('/\d{7,7}.$/', $dni)) {
-            throw new InvalidDniFormatException("Dni can't have characters in the middle of the string");
-        }
-        if (!preg_match('/^[XYZ0-9]/', $dni)) {
-            throw new InvalidDniFormatException("Dni must start by a number X, Y or Z");
+        if (!preg_match('/^[XYZ\d]\d{7,7}[^UIOÑ\d]$/u', $dni)) {
+            throw new InvalidDniFormatException("Dni wrong format");
         }
     }
 }
