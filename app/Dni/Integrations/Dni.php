@@ -11,12 +11,21 @@ class Dni
 
     public function __construct($dni)
     {
-        if(strlen($dni) > self::DNI_LENGTH_TO_CHECK) {
+        $this->checkDniLength($dni);
+        throw new InvalidDniFormatException("Last Dni character can't be a number");
+    }
+
+    /**
+     * @param $dni
+     * @throws InvalidDniLengthException
+     */
+    private function checkDniLength($dni): void
+    {
+        if (strlen($dni) > self::DNI_LENGTH_TO_CHECK) {
             throw new InvalidDniLengthException('Dni string is too long');
         }
-        if(strlen($dni) < self::DNI_LENGTH_TO_CHECK) {
+        if (strlen($dni) < self::DNI_LENGTH_TO_CHECK) {
             throw new InvalidDniLengthException('Dni string is too short');
         }
-        throw new InvalidDniFormatException("Last Dni character can't be a number");
     }
 }
