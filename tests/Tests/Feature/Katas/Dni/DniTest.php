@@ -4,6 +4,7 @@ namespace Tests\Feature\Katas\Dni;
 
 use PHPUnit\Framework\TestCase;
 use App\Dni\Exceptions\InvalidDniLengthException;
+use App\Dni\Exceptions\InvalidDniFormatException;
 use App\Dni\Integrations\Dni;
 
 class DniTest  extends TestCase
@@ -26,7 +27,7 @@ class DniTest  extends TestCase
 
     public function test_dni_is_invalid_because_last_character_is_a_number()
     {
-        $this->expectException(InvalidDniFromatException::class);
+        $this->expectException(InvalidDniFormatException::class);
         $this->expectExceptionMessage('Last Dni character can\'t be a number');
         $dni = "123456789";
         new Dni($dni);
