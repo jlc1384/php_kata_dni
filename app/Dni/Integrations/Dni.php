@@ -6,8 +6,11 @@ use App\Dni\Exceptions\InvalidDniLengthException;
 
 class Dni
 {
-    public function __construct()
+    public function __construct($dni)
     {
-        throw new InvalidDniLengthException('Dni string is too long');
+        if(strlen($dni) > 9) {
+            throw new InvalidDniLengthException('Dni string is too long');
+        }
+        throw new InvalidDniLengthException('Dni string is too short');
     }
 }

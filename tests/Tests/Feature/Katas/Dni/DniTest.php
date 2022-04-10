@@ -12,13 +12,15 @@ class DniTest  extends TestCase
     {
         $this->expectException(InvalidDniLengthException::class);
         $this->expectExceptionMessage('Dni string is too long');
-        new Dni();
+        $dni = "1234567890F";
+        new Dni($dni);
     }
 
     public function test_dni_is_invalid_because_dni_string_is_too_short()
     {
         $this->expectException(InvalidDniLengthException::class);
         $this->expectExceptionMessage('Dni string is too short');
-        new Dni();
+        $dni = "7890F";
+        new Dni($dni);
     }
 }
