@@ -30,4 +30,12 @@ class DniTest  extends TestCase
         $dni = "123456789";
         new Dni($dni);
     }
+
+    public function test_dni_is_invalid_because_last_character_cannot_be_i_u_o_spanish_n()
+    {
+        $this->expectException(InvalidDniFormatException::class);
+        $this->expectExceptionMessage('Last Dni character can\'t be i,o,u,ñ');
+        $dni = "12345678I";
+        new Dni($dni);
+    }
 }
