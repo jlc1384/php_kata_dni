@@ -3,6 +3,7 @@
 namespace App\Dni\Integrations;
 
 use App\Dni\Exceptions\InvalidDniLengthException;
+use App\Dni\Exceptions\InvalidDniFormatException;
 
 class Dni
 {
@@ -11,6 +12,9 @@ class Dni
         if(strlen($dni) > 9) {
             throw new InvalidDniLengthException('Dni string is too long');
         }
-        throw new InvalidDniLengthException('Dni string is too short');
+        if(strlen($dni) < 9) {
+            throw new InvalidDniLengthException('Dni string is too short');
+        }
+        throw new InvalidDniFormatException("Last Dni character can't be a number");
     }
 }
