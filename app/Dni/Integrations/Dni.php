@@ -12,7 +12,11 @@ class Dni
     public function __construct($dni)
     {
         $this->checkDniLength($dni);
-        throw new InvalidDniFormatException("Last Dni character can't be a number");
+        //if(preg_match('/[0-9]/', substr($dni, -1))) {
+        if(preg_match('/\d$/', $dni)) {
+            throw new InvalidDniFormatException("Last Dni character can't be a number");
+        }
+        throw new InvalidDniFormatException("Last Dni character can't be i,o,u,ñ");
     }
 
     /**
