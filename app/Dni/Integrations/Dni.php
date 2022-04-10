@@ -16,7 +16,10 @@ class Dni
         if(preg_match('/\d$/', $dni)) {
             throw new InvalidDniFormatException("Last Dni character can't be a number");
         }
-        throw new InvalidDniFormatException("Last Dni character can't be i,o,u,ñ");
+        if(preg_match('(i|o|ñ|u)', strtolower($dni)) === 1) {
+            throw new InvalidDniFormatException("Last Dni character can't be i,o,u,ñ");
+        }
+        throw new InvalidDniFormatException("Dni can't have characters in the middle of the string");
     }
 
     /**

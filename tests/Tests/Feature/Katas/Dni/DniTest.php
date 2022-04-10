@@ -43,7 +43,7 @@ class DniTest  extends TestCase
     {
         $this->expectException(InvalidDniFormatException::class);
         $this->expectExceptionMessage('Dni can\'t have characters in the middle of the string');
-        $dni = "123JSA78I";
+        $dni = "123JSA78S";
         new Dni($dni);
     }
 }
