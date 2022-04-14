@@ -74,4 +74,12 @@ class DniTest  extends TestCase
         $dniResponse = $dniObj->getDni();
         $this->assertEquals((string) $dniResponse, $dni);
     }
+
+    public function test_dni_is_valid_Y0000000Z()
+    {
+        $dni = 'Y0000000Z';
+        $dniObj = new Dni($dni);
+        $dniResponse = $dniObj->getDni();
+        $this->assertEquals((string) $dniResponse, $dni);
+    }
 }
