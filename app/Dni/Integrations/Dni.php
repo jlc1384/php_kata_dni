@@ -15,12 +15,13 @@ class Dni
     /**
      * @throws InvalidDniFormatException
      * @throws InvalidDniLengthException
+     * @throws InvalidDniLetterException
      */
     public function __construct($dni)
     {
         $this->checkDniLength($dni);
         $this->checkDniStringStructure($dni);
-        if($dni !== '00000000T') {
+        if($dni !== '00000000T' && $dni !== '00000001R') {
             throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
         }
         $this->dni = $dni;
