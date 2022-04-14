@@ -23,11 +23,10 @@ class Dni
         $this->checkDniStringStructure($dni);
 
         $dniNumber = substr($dni, 0, - 1);
-        $dniNumber = str_replace("X", '0', $dniNumber);
-        $dniNumber = str_replace("Y", '1', $dniNumber);
-        $dniNumber = str_replace("Z", '2', $dniNumber);
+        $dniNumber = str_replace(["X", "Y", "Z"], ['0', '1', '2'], $dniNumber);
         $dniLetter = strtoupper(substr($dni, -1));
         $remainder = $dniNumber % 23;
+
         $dniEquivalencesLetterRemainder = ["0" => "T", "1" => "R", "2" => "W", "3" => "A", "4" => "G", "5" => "M",
             "6" => "Y", "7" => "F", "8" => "P", "9" => "D", "10" => "X", "11" => "B", "12" => "N", "13" => "J",
             "14" => "Z", "15" => "S", "16" => "Q", "17" => "V", "18" => "H", "19" => "L", "20" => "C", "21" => "K",
