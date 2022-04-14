@@ -13,42 +13,42 @@ class DniTest  extends TestCase
     {
         $this->expectException(InvalidDniLengthException::class);
         $dni = "1234567890F";
-        new Dni($dni);
+        Dni::buildDni($dni);
     }
 
     public function test_dni_is_invalid_because_dni_string_is_too_short()
     {
         $this->expectException(InvalidDniLengthException::class);
         $dni = "7890F";
-        new Dni($dni);
+        Dni::buildDni($dni);
     }
 
     public function test_dni_is_invalid_because_last_character_is_a_number()
     {
         $this->expectException(InvalidDniFormatException::class);
         $dni = "123456789";
-        new Dni($dni);
+        Dni::buildDni($dni);
     }
 
     public function test_dni_is_invalid_because_last_character_cannot_be_i_u_o_spanish_n()
     {
         $this->expectException(InvalidDniFormatException::class);
         $dni = "12345678I";
-        new Dni($dni);
+        Dni::buildDni($dni);
     }
 
     public function test_dni_is_invalid_because_it_has_characters_in_the_middle()
     {
         $this->expectException(InvalidDniFormatException::class);
         $dni = "123JSA78S";
-        new Dni($dni);
+        Dni::buildDni($dni);
     }
 
     public function test_dni_is_invalid_because_the_beginning_of_the_string_is_not_a_number_x_y_or_z()
     {
         $this->expectException(InvalidDniFormatException::class);
         $dni = "L2345678S";
-        new Dni($dni);
+        Dni::buildDni($dni);
     }
 
     /**
@@ -56,7 +56,7 @@ class DniTest  extends TestCase
      */
     public function test_all_table_possibilities_dni_is_valid($dni)
     {
-        $dniObj = new Dni($dni);
+        $dniObj = Dni::buildDni($dni);
         $dniResponse = $dniObj->getDni();
         $this->assertEquals((string) $dniResponse, $dni);
     }

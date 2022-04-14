@@ -21,11 +21,13 @@ class Dni
     private string $dni;
 
     /**
+     * Dni constructor.
+     * @param string $dni
      * @throws InvalidDniFormatException
      * @throws InvalidDniLengthException
      * @throws InvalidDniLetterException
      */
-    public function __construct($dni)
+    private function __construct(string $dni)
     {
         $this->checkDniLength($dni);
         $this->checkDniStringStructure($dni);
@@ -35,10 +37,10 @@ class Dni
     }
 
     /**
-     * @param $dni
+     * @param string $dni
      * @throws InvalidDniLengthException
      */
-    private function checkDniLength($dni): void
+    private function checkDniLength(string $dni): void
     {
         if (strlen($dni) !== self::DNI_LENGTH_TO_CHECK) {
             throw new InvalidDniLengthException('Dni string is not valid. It must contain exactly 9 characters');
@@ -46,14 +48,26 @@ class Dni
     }
 
     /**
-     * @param $dni
+     * @param string $dni
      * @throws InvalidDniFormatException
      */
-    private function checkDniStringStructure($dni): void
+    private function checkDniStringStructure(string $dni): void
     {
         if (!preg_match('/^[XYZ\d]\d{7,7}[^UIOÑ\d]$/u', $dni)) {
             throw new InvalidDniFormatException("Dni wrong format");
         }
+    }
+
+    /**
+     * @param string $dni
+     * @return Dni
+     * @throws InvalidDniFormatException
+     * @throws InvalidDniLengthException
+     * @throws InvalidDniLetterException
+     */
+    public static function buildDni(string $dni)
+    {
+        return new self($dni);
     }
 
     public function getDni()
@@ -62,10 +76,10 @@ class Dni
     }
 
     /**
-     * @param $dni
+     * @param string $dni
      * @throws InvalidDniLetterException
      */
-    private function checkIfDniIsValid($dni): void
+    private function checkIfDniIsValid(string $dni): void
     {
         $dniNumber = $this->getDniNumber($dni);
         $dniLetter = $this->getDniLetter($dni);
@@ -76,29 +90,29 @@ class Dni
     }
 
     /**
-     * @param $dni
+     * @param string $dni
      * @return array|false|string|string[]
      */
-    private function getDniNumber($dni)
+    private function getDniNumber(string $dni)
     {
         $dniNumber = substr($dni, 0, -1);
         return str_replace(self::EQUIVALENCE_FIRST_LETTER, self::EQUIVALENCE_FIRST_LETTER_DIGIT, $dniNumber);
     }
 
     /**
-     * @param $dni
+     * @param string $dni
      * @return string
      */
-    private function getDniLetter($dni): string
+    private function getDniLetter(string $dni): string
     {
         return strtoupper(substr($dni, -1));
     }
 
     /**
-     * @param $dniNumber
+     * @param int $dniNumber
      * @return int
      */
-    private function getDniReminder($dniNumber): int
+    private function getDniReminder(int $dniNumber): int
     {
         return $dniNumber % self::DNI_DIVISOR;
     }
