@@ -21,9 +21,19 @@ class Dni
     {
         $this->checkDniLength($dni);
         $this->checkDniStringStructure($dni);
-        if($dni !== '00000000T' && $dni !== '00000001R') {
+
+        $dniNumber = (int)substr($dni, 0, - 1);
+        $dniLetter = strtoupper(substr($dni, -1));
+        $remainder = $dniNumber % 23;
+
+        if($remainder === 0 && $dniLetter !== 'T') {
             throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
         }
+
+        if($remainder === 1 && $dniLetter !== 'R') {
+            throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
+        }
+
         $this->dni = $dni;
     }
 
