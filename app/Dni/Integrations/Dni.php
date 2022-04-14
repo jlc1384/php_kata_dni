@@ -9,6 +9,7 @@ use App\Dni\Exceptions\InvalidDniLetterException;
 class Dni
 {
     const DNI_LENGTH_TO_CHECK = 9;
+    const DNI_DIVISOR = 23;
     const EQUIVALENCE_FIRST_LETTER = ["X", "Y", "Z"];
     const EQUIVALENCE_FIRST_LETTER_DIGIT = ['0', '1', '2'];
     const EQUIVALENCES_REMAINDER = ["0" => "T", "1" => "R", "2" => "W", "3" => "A", "4" => "G", "5" => "M",
@@ -66,13 +67,39 @@ class Dni
      */
     private function checkIfDniIsValid($dni): void
     {
-        $dniNumber = substr($dni, 0, -1);
-        $dniNumber = str_replace(self::EQUIVALENCE_FIRST_LETTER, self::EQUIVALENCE_FIRST_LETTER_DIGIT, $dniNumber);
-        $dniLetter = strtoupper(substr($dni, -1));
-        $remainder = $dniNumber % 23;
-
+        $dniNumber = $this->getDniNumber($dni);
+        $dniLetter = $this->getDniLetter($dni);
+        $remainder = $this->getDniReminder($dniNumber);
         if ($dniLetter !== self::EQUIVALENCES_REMAINDER[$remainder]) {
             throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
         }
+    }
+
+    /**
+     * @param $dni
+     * @return array|false|string|string[]
+     */
+    private function getDniNumber($dni)
+    {
+        $dniNumber = substr($dni, 0, -1);
+        return str_replace(self::EQUIVALENCE_FIRST_LETTER, self::EQUIVALENCE_FIRST_LETTER_DIGIT, $dniNumber);
+    }
+
+    /**
+     * @param $dni
+     * @return string
+     */
+    private function getDniLetter($dni): string
+    {
+        return strtoupper(substr($dni, -1));
+    }
+
+    /**
+     * @param $dniNumber
+     * @return int
+     */
+    private function getDniReminder($dniNumber): int
+    {
+        return $dniNumber % self::DNI_DIVISOR;
     }
 }
