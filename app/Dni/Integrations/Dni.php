@@ -25,6 +25,7 @@ class Dni
         $dniNumber = substr($dni, 0, - 1);
         $dniNumber = str_replace("X", '0', $dniNumber);
         $dniNumber = str_replace("Y", '1', $dniNumber);
+        $dniNumber = str_replace("Z", '2', $dniNumber);
         $dniLetter = strtoupper(substr($dni, -1));
         $remainder = $dniNumber % 23;
         $dniEquivalencesLetterRemainder = ["0" => "T", "1" => "R", "2" => "W", "3" => "A", "4" => "G", "5" => "M",
