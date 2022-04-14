@@ -51,43 +51,45 @@ class DniTest  extends TestCase
         new Dni($dni);
     }
 
-    public function test_dni_is_valid_00000000T()
+    /**
+     * @dataProvider validDniDataProvider
+     */
+    public function test_all_table_possibilities_dni_is_valid($dni)
     {
-        $dni = '00000000T';
         $dniObj = new Dni($dni);
         $dniResponse = $dniObj->getDni();
         $this->assertEquals((string) $dniResponse, $dni);
     }
 
-    public function test_dni_is_valid_00000001R()
+    public function validDniDataProvider(): array
     {
-        $dni = '00000001R';
-        $dniObj = new Dni($dni);
-        $dniResponse = $dniObj->getDni();
-        $this->assertEquals((string) $dniResponse, $dni);
-    }
-
-    public function test_dni_is_valid_X0000000T()
-    {
-        $dni = 'X0000000T';
-        $dniObj = new Dni($dni);
-        $dniResponse = $dniObj->getDni();
-        $this->assertEquals((string) $dniResponse, $dni);
-    }
-
-    public function test_dni_is_valid_Y0000000Z()
-    {
-        $dni = 'Y0000000Z';
-        $dniObj = new Dni($dni);
-        $dniResponse = $dniObj->getDni();
-        $this->assertEquals((string) $dniResponse, $dni);
-    }
-
-    public function test_dni_is_valid_Z0000000M()
-    {
-        $dni = 'Z0000000M';
-        $dniObj = new Dni($dni);
-        $dniResponse = $dniObj->getDni();
-        $this->assertEquals((string) $dniResponse, $dni);
+        return [
+            ['00000000T'],
+            ['00000001R'],
+            ['00000002W'],
+            ['00000003A'],
+            ['00000004G'],
+            ['00000005M'],
+            ['00000006Y'],
+            ['00000007F'],
+            ['00000008P'],
+            ['00000009D'],
+            ['00000010X'],
+            ['00000011B'],
+            ['00000012N'],
+            ['00000013J'],
+            ['00000014Z'],
+            ['00000015S'],
+            ['00000016Q'],
+            ['00000017V'],
+            ['00000018H'],
+            ['00000019L'],
+            ['00000020C'],
+            ['00000021K'],
+            ['00000022E'],
+            ['X0000000T'],
+            ['Y0000000Z'],
+            ['Z0000000M'],
+        ];
     }
 }
