@@ -28,15 +28,7 @@ class Dni
     {
         $this->checkDniLength($dni);
         $this->checkDniStringStructure($dni);
-
-        $dniNumber = substr($dni, 0, - 1);
-        $dniNumber = str_replace(self::EQUIVALENCE_FIRST_LETTER, self::EQUIVALENCE_FIRST_LETTER_DIGIT, $dniNumber);
-        $dniLetter = strtoupper(substr($dni, -1));
-        $remainder = $dniNumber % 23;
-
-        if($dniLetter !== self::EQUIVALENCES_REMAINDER[$remainder]) {
-            throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
-        }
+        $this->checkIfDniIsValid($dni);
 
         $this->dni = $dni;
     }
@@ -66,5 +58,21 @@ class Dni
     public function getDni()
     {
         return $this->dni;
+    }
+
+    /**
+     * @param $dni
+     * @throws InvalidDniLetterException
+     */
+    private function checkIfDniIsValid($dni): void
+    {
+        $dniNumber = substr($dni, 0, -1);
+        $dniNumber = str_replace(self::EQUIVALENCE_FIRST_LETTER, self::EQUIVALENCE_FIRST_LETTER_DIGIT, $dniNumber);
+        $dniLetter = strtoupper(substr($dni, -1));
+        $remainder = $dniNumber % 23;
+
+        if ($dniLetter !== self::EQUIVALENCES_REMAINDER[$remainder]) {
+            throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
+        }
     }
 }
