@@ -22,15 +22,15 @@ class Dni
         $this->checkDniLength($dni);
         $this->checkDniStringStructure($dni);
 
-        $dniNumber = (int)substr($dni, 0, - 1);
+        $dniNumber = substr($dni, 0, - 1);
         $dniLetter = strtoupper(substr($dni, -1));
         $remainder = $dniNumber % 23;
+        $dniEquivalencesLetterRemainder = [
+          "0" => "T",
+          "1" => "R"
+        ];
 
-        if($remainder === 0 && $dniLetter !== 'T') {
-            throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
-        }
-
-        if($remainder === 1 && $dniLetter !== 'R') {
+        if($dniLetter !== $dniEquivalencesLetterRemainder[$remainder]) {
             throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
         }
 
