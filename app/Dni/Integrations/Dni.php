@@ -9,6 +9,13 @@ use App\Dni\Exceptions\InvalidDniLetterException;
 class Dni
 {
     const DNI_LENGTH_TO_CHECK = 9;
+    const EQUIVALENCE_FIRST_LETTER = ["X", "Y", "Z"];
+    const EQUIVALENCE_FIRST_LETTER_DIGIT = ['0', '1', '2'];
+    const EQUIVALENCES_REMAINDER = ["0" => "T", "1" => "R", "2" => "W", "3" => "A", "4" => "G", "5" => "M",
+        "6" => "Y", "7" => "F", "8" => "P", "9" => "D", "10" => "X", "11" => "B", "12" => "N", "13" => "J",
+        "14" => "Z", "15" => "S", "16" => "Q", "17" => "V", "18" => "H", "19" => "L", "20" => "C", "21" => "K",
+        "22" => "E"
+    ];
 
     private string $dni;
 
@@ -23,17 +30,11 @@ class Dni
         $this->checkDniStringStructure($dni);
 
         $dniNumber = substr($dni, 0, - 1);
-        $dniNumber = str_replace(["X", "Y", "Z"], ['0', '1', '2'], $dniNumber);
+        $dniNumber = str_replace(self::EQUIVALENCE_FIRST_LETTER, self::EQUIVALENCE_FIRST_LETTER_DIGIT, $dniNumber);
         $dniLetter = strtoupper(substr($dni, -1));
         $remainder = $dniNumber % 23;
 
-        $dniEquivalencesLetterRemainder = ["0" => "T", "1" => "R", "2" => "W", "3" => "A", "4" => "G", "5" => "M",
-            "6" => "Y", "7" => "F", "8" => "P", "9" => "D", "10" => "X", "11" => "B", "12" => "N", "13" => "J",
-            "14" => "Z", "15" => "S", "16" => "Q", "17" => "V", "18" => "H", "19" => "L", "20" => "C", "21" => "K",
-            "22" => "E"
-        ];
-
-        if($dniLetter !== $dniEquivalencesLetterRemainder[$remainder]) {
+        if($dniLetter !== self::EQUIVALENCES_REMAINDER[$remainder]) {
             throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
         }
 
