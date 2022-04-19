@@ -8,11 +8,11 @@ use App\Dni\Exceptions\InvalidDniLetterException;
 
 class Dni
 {
-    const DNI_LENGTH_TO_CHECK = 9;
-    const DNI_DIVISOR = 23;
-    const EQUIVALENCE_FIRST_LETTER = ["X", "Y", "Z"];
-    const EQUIVALENCE_FIRST_LETTER_DIGIT = ['0', '1', '2'];
-    const EQUIVALENCES_REMAINDER = ["0" => "T", "1" => "R", "2" => "W", "3" => "A", "4" => "G", "5" => "M",
+    private const DNI_LENGTH_TO_CHECK = 9;
+    private const DNI_DIVISOR = 23;
+    private const EQUIVALENCE_FIRST_LETTER = ["X", "Y", "Z"];
+    private const EQUIVALENCE_FIRST_LETTER_DIGIT = ['0', '1', '2'];
+    private const EQUIVALENCES_REMAINDER = ["0" => "T", "1" => "R", "2" => "W", "3" => "A", "4" => "G", "5" => "M",
         "6" => "Y", "7" => "F", "8" => "P", "9" => "D", "10" => "X", "11" => "B", "12" => "N", "13" => "J",
         "14" => "Z", "15" => "S", "16" => "Q", "17" => "V", "18" => "H", "19" => "L", "20" => "C", "21" => "K",
         "22" => "E"
@@ -43,7 +43,7 @@ class Dni
     private function checkDniLength(string $dni): void
     {
         if (strlen($dni) !== self::DNI_LENGTH_TO_CHECK) {
-            throw new InvalidDniLengthException('Dni string is not valid. It must contain exactly 9 characters');
+            throw new InvalidDniLengthException();
         }
     }
 
@@ -54,7 +54,7 @@ class Dni
     private function checkDniStringStructure(string $dni): void
     {
         if (!preg_match('/^[XYZ\d]\d{7,7}[^UIOÑ\d]$/u', $dni)) {
-            throw new InvalidDniFormatException("Dni wrong format");
+            throw new InvalidDniFormatException();
         }
     }
 
@@ -65,12 +65,12 @@ class Dni
      * @throws InvalidDniLengthException
      * @throws InvalidDniLetterException
      */
-    public static function buildDni(string $dni)
+    public static function buildDni(string $dni) : Dni
     {
         return new self($dni);
     }
 
-    public function getDni()
+    public function getDni() : string
     {
         return $this->dni;
     }
@@ -85,7 +85,7 @@ class Dni
         $dniLetter = $this->getDniLetter($dni);
         $remainder = $this->getDniReminder($dniNumber);
         if ($dniLetter !== self::EQUIVALENCES_REMAINDER[$remainder]) {
-            throw new InvalidDniLetterException('Dni string is not valid. The letter is not valid for these Dni numbers');
+            throw new InvalidDniLetterException();
         }
     }
 
