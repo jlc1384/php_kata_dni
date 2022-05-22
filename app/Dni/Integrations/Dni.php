@@ -2,7 +2,7 @@
 
 namespace App\Dni\Integrations;
 
-use App\Dni\Exceptions\InvalidDniLengthException;
+use App\Dni\Exceptions2\InvalidDniLengthException;
 
 class Dni
 {

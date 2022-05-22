@@ -3,7 +3,6 @@
 namespace Tests\Feature\Katas\Dni;
 
 use PHPUnit\Framework\TestCase;
-use App\Dni\Exceptions\InvalidDniLengthException;
 use App\Dni\Integrations\Dni;
 
 class DniTest  extends TestCase
