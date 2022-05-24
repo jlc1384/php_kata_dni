@@ -70,7 +70,7 @@ class Dni
         return new self($dni);
     }
 
-    public function getDni() : string
+    public function __toString() : string
     {
         return $this->dni;
     }

@@ -12,53 +12,52 @@ class DniTest  extends TestCase
     public function test_dni_is_invalid_because_dni_string_is_too_long()
     {
         $this->expectException(InvalidDniLengthException::class);
-        $dni = "1234567890F";
-        Dni::buildDni($dni);
+        $dniString = "1234567890F";
+        Dni::buildDni($dniString);
     }
 
     public function test_dni_is_invalid_because_dni_string_is_too_short()
     {
         $this->expectException(InvalidDniLengthException::class);
-        $dni = "7890F";
-        Dni::buildDni($dni);
+        $dniString = "7890F";
+        Dni::buildDni($dniString);
     }
 
     public function test_dni_is_invalid_because_last_character_is_a_number()
     {
         $this->expectException(InvalidDniFormatException::class);
-        $dni = "123456789";
-        Dni::buildDni($dni);
+        $dniString = "123456789";
+        Dni::buildDni($dniString);
     }
 
     public function test_dni_is_invalid_because_last_character_cannot_be_i_u_o_spanish_n()
     {
         $this->expectException(InvalidDniFormatException::class);
-        $dni = "12345678I";
-        Dni::buildDni($dni);
+        $dniString = "12345678I";
+        Dni::buildDni($dniString);
     }
 
     public function test_dni_is_invalid_because_it_has_characters_in_the_middle()
     {
         $this->expectException(InvalidDniFormatException::class);
-        $dni = "123JSA78S";
-        Dni::buildDni($dni);
+        $dniString = "123JSA78S";
+        Dni::buildDni($dniString);
     }
 
     public function test_dni_is_invalid_because_the_beginning_of_the_string_is_not_a_number_x_y_or_z()
     {
         $this->expectException(InvalidDniFormatException::class);
-        $dni = "L2345678S";
-        Dni::buildDni($dni);
+        $dniString = "L2345678S";
+        Dni::buildDni($dniString);
     }
 
     /**
      * @dataProvider validDniDataProvider
      */
-    public function test_all_table_possibilities_dni_is_valid($dni)
+    public function test_all_table_possibilities_dni_is_valid($dniExpected)
     {
-        $dniObj = Dni::buildDni($dni);
-        $dniResponse = $dniObj->getDni();
-        $this->assertEquals((string) $dniResponse, $dni);
+        $dni = Dni::buildDni($dniExpected);
+        $this->assertEquals((string) $dniExpected, $dni);
     }
 
     public function validDniDataProvider(): array
